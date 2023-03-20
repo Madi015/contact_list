@@ -17,10 +17,7 @@
                 Console.Write($"> ");
                 commandLine = Console.ReadLine().Split(' ');
                 if (commandLine[0] == "quit")
-                {
-                    // NYI!
-                    Console.WriteLine("Not yet implemented: safe quit");
-                }
+                    Quit();
                 else if (commandLine[0] == "load")
                 {
                     if (commandLine.Length < 2)
@@ -135,6 +132,11 @@
                     Console.WriteLine($"Unknown command: '{commandLine[0]}'");
                 }
             } while (commandLine[0] != "quit");
+        }
+
+        private static void Quit()
+        {
+            Console.WriteLine("Hej då");
         }
 
         private static void PrintOut_Instructions()
