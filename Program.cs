@@ -20,17 +20,7 @@
                     Quit();
                 else if (commandLine[0] == "load")
                 {
-                    if (commandLine.Length < 2)
-                    {
-                        lastFileName = "address.lis";
-                        LoadFromFile(lastFileName);
-                    }
-                    else
-                    {
-                        lastFileName = commandLine[1];
-                        using (StreamReader infile = new StreamReader(lastFileName))
-                            LoadFromFile(lastFileName);
-                    }
+                    lastFileName = TryToLoad(lastFileName, commandLine);
                 }
                 else if (commandLine[0] == "save")
                 {
@@ -87,6 +77,27 @@
                     Console.WriteLine($"Unknown command: '{commandLine[0]}'");
                 }
             } while (commandLine[0] != "quit");
+        }
+
+        private static string TryToLoad(string lastFileName, string[] commandLine)
+        {
+            try
+            {
+                if (commandLine.Length < 2)
+                {
+                    lastFileName = "address.lis";
+                    LoadFromFile(lastFileName);
+                }
+                else
+                {
+                    lastFileName = commandLine[1];
+                    using (StreamReader infile = new StreamReader(lastFileName))
+                        LoadFromFile(lastFileName);
+                }
+            }
+            catch { Console.WriteLine("You haven't written a correcet file name"); }
+
+            return lastFileName;
         }
 
         private static void LoadFromFile(string lastFileName)
